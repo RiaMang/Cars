@@ -23,7 +23,7 @@ namespace Cars.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("LocalConnection", throwIfV1Schema: false)
         {
         }
 
@@ -34,6 +34,72 @@ namespace Cars.Models
             var yearParam = new SqlParameter("@year", year);
             return await this.Database
                 .SqlQuery<Car>("GetCarsFromYear @year", yearParam).ToListAsync();
+        }
+
+        public async Task<List<string>> GetYears()
+        {
+            
+            return await this.Database
+                .SqlQuery<string>("GetYears").ToListAsync();
+        }
+
+        public async Task<List<string>> GetMakes(string year)
+        {
+            var yearParam = new SqlParameter("@year", year);
+            return await this.Database
+                .SqlQuery<string>("GetMakes @year", yearParam).ToListAsync();
+        }
+
+        public async Task<List<string>> GetModels(string year, string make)
+        {
+            var yearParam = new SqlParameter("@year", year);
+            var makeParam = new SqlParameter("@make", make);
+            return await this.Database
+                .SqlQuery<string>("GetModels @year,@make", yearParam, makeParam).ToListAsync();
+        }
+
+        public async Task<List<string>> GetTrims(string year, string make, string model)
+        {
+            var yearParam = new SqlParameter("@year", year);
+            var makeParam = new SqlParameter("@make", make);
+            var modelParam = new SqlParameter("@model", model);
+            return await this.Database
+                .SqlQuery<string>("GetTrims @year,@make,@model", yearParam, makeParam, modelParam).ToListAsync();
+        }
+
+        public async Task<List<Car>> GetCars(string year, string make, string model, string trim)
+        {
+            var yearParam = new SqlParameter("@year", year);
+            var makeParam = new SqlParameter("@make", make);
+            var modelParam = new SqlParameter("@model", model);
+            var trimParam = new SqlParameter("@trim", trim);
+            return await this.Database
+                .SqlQuery<Car>("GetCars @year,@make,@model,@trim", yearParam, makeParam, modelParam, trimParam).ToListAsync();
+        }
+
+        public async Task<List<Car>> SelectPagedCars(string page, string perpage)
+        {
+            var pageParam = new SqlParameter("@page", page);
+            var perpageParam = new SqlParameter("@perpage", perpage);
+            return await this.Database
+                .SqlQuery<Car>("SelectPagedCars @page,@perpage", pageParam, perpageParam).ToListAsync();
+        }
+
+        public async Task<List<int>> GetCarCount(string filter)
+        {
+            var filterParam = new SqlParameter("@filter", filter);
+           
+            return await this.Database
+                .SqlQuery<int>("GetCarCount @filter", filterParam).ToListAsync();
+        }
+
+        public async Task<List<Car>> GetAllFilCars(string filter, string page, string perpage)
+        {
+            var filterParam = new SqlParameter("@filter", filter);
+            var pageParam = new SqlParameter("@page", page);
+            var perpageParam = new SqlParameter("@perpage", perpage);
+            return await this.Database
+                .SqlQuery<Car>("GetAllFilCars @filter,@page,@perpage", filterParam, pageParam, perpageParam).ToListAsync();
         }
 
         public static ApplicationDbContext Create()

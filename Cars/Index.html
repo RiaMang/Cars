@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/font-awesome.min.css" rel="stylesheet" />
+    <link href="TrNgGrid/trNgGrid.min.css" rel="stylesheet" />
+</head>
+<body>
+    <style>
+        table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 4px;
+    }
+    </style>
+    <div class="container" ng-app="app">
+        <div ng-controller="ctrl as c">
+            <div>
+                <div class="row">
+                    <div class="col-xs-3">
+                        <select ng-options="year for year in c.options.years" ng-model="c.selected.year" ng-change="c.getMakes()"></select>
+                    </div>
+                    <div class="col-xs-3">
+                        <select ng-options="make for make in c.options.makes" ng-model="c.selected.make" ng-change="c.getModels()"></select>
+                    </div>
+                    <div class="col-xs-3">
+                        <select ng-options="model for model in c.options.models" ng-model="c.selected.model" ng-change="c.getTrims()"></select>
+                    </div>
+                    <div class="col-xs-3">
+                        <select ng-options="trim for trim in c.options.trims" ng-model="c.selected.trim" ng-change="c.getCars()"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                Year: {{c.selected.year}}<br />
+                Make: {{c.selected.make}}<br />
+                Model: {{c.selected.model}}<br />
+                Trim: {{c.selected.trim}}<br />
+                Cars: 
+                <label>All cars: </label>
+                <input type="checkbox" ng-model="c.allCars" ng-change="c.checkAllCars()"/>
+                
+            </div>
+            <div class="row">
+                <!--<div ng-init="c.total=60506;myGlobalFilter='';myCurrentPage=2;myOrderBy='name';myOrderByReversed=true;myColumnFilter={name:' helen '}">-->
+
+                    <table tr-ng-grid="" items="c.cars" page-items="c.paging.perpage" total-items="c.tab.total" filter-by="c.tab.search" 
+                           filter-by-fields="myColumnFilter" order-by="myOrderBy" order-by-reverse="myOrderByReversed" current-page="c.paging.page" 
+                           on-data-required="c.changeTable(currentPage, pageItems, filterBy, filterByFields, orderBy, orderByReverse)"></table>
+                    
+                      <!--  <table tr-ng-grid="" items="c.cars" page-items="5">
+                        <thead>
+                <tr>
+                    <th>Year</th>
+                    <th>Make</th>
+                    <th>Model</th>
+                    <th>Trim</th>
+                    <th>BodyStyle</th>
+                    <th>EngineCC</th>
+                    <th>EnginePowerPs</th>
+                    <th>EngineNumCyl</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="car in c.cars">
+                    <td>car.model_year}}</td>
+                    <td>car.make}}</td>
+                    <td>car.model_name}}</td>
+                    <td>car.model_trim}}</td>
+                    <td>car.body_style}}</td>
+                    <td>car.engine_cc}}</td>
+                    <td>car.engine_power_ps}}</td>
+                    <td>car.engine_num_cyl}}</td>
+                </tr>
+            </tbody>-->
+                    </table>
+                </div>
+        </div>
+    </div>
+    <script src="/Scripts/angular.min.js"></script>
+    <script src="/TrNgGrid/trNgGrid.min.js"></script>
+    <script src="/App/app.js"></script>
+    <script src="/App/Controller.js"></script>
+    <script src="/App/service.js"></script>
+    <script src="/App/carService.js"></script>
+</body>
+</html>
