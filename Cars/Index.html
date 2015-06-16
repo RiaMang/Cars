@@ -19,50 +19,53 @@
             <div>
                 <div class="row">
                     <div class="col-xs-3">
-                        <select ng-options="year for year in c.options.years" ng-model="c.selected.year" ng-change="c.getMakes()"></select>
+                        <select ng-options="year for year in c.options.years" ng-model="c.filters.year" ng-change="c.getMakes()"></select>
                     </div>
                     <div class="col-xs-3">
-                        <select ng-options="make for make in c.options.makes" ng-model="c.selected.make" ng-change="c.getModels()"></select>
+                        <select ng-options="make for make in c.options.makes" ng-model="c.filters.make" ng-change="c.getModels()"></select>
                     </div>
                     <div class="col-xs-3">
-                        <select ng-options="model for model in c.options.models" ng-model="c.selected.model" ng-change="c.getTrims()"></select>
+                        <select ng-options="model for model in c.options.models" ng-model="c.filters.model" ng-change="c.getTrims()"></select>
                     </div>
                     <div class="col-xs-3">
-                        <select ng-options="trim for trim in c.options.trims" ng-model="c.selected.trim" ng-change="c.getCars()"></select>
+                        <select ng-options="trim for trim in c.options.trims" ng-model="c.filters.trim" ng-change="c.getCars()"></select>
                     </div>
                 </div>
             </div>
             <div class="row">
-                Year: {{c.selected.year}}<br />
-                Make: {{c.selected.make}}<br />
-                Model: {{c.selected.model}}<br />
-                Trim: {{c.selected.trim}}<br />
-                Cars: 
-                <label>All cars: </label>
-                <input type="checkbox" ng-model="c.allCars" ng-change="c.checkAllCars()"/>
+                <br />
+                Year: {{c.filters.year}}<br />
+                Make: {{c.filters.make}}<br />
+                Model: {{c.filters.model}}<br />
+                Trim: {{c.filters.trim}}<br />
+                Cars: <br />
+                <!--<label>All cars: </label>
+                <input type="checkbox" ng-model="c.allCars" ng-change="c.checkAllCars()"/>-->
                 
             </div>
             <div class="row">
                 <!--<div ng-init="c.total=60506;myGlobalFilter='';myCurrentPage=2;myOrderBy='name';myOrderByReversed=true;myColumnFilter={name:' helen '}">-->
 
-                    <table tr-ng-grid="" items="c.cars" page-items="c.paging.perpage" total-items="c.tab.total" filter-by="c.tab.search" 
-                           filter-by-fields="myColumnFilter" order-by="myOrderBy" order-by-reverse="myOrderByReversed" current-page="c.paging.page" 
-                           on-data-required="c.changeTable(currentPage, pageItems, filterBy, filterByFields, orderBy, orderByReverse)"></table>
-                    
-                      <!--  <table tr-ng-grid="" items="c.cars" page-items="5">
-                        <thead>
-                <tr>
-                    <th>Year</th>
-                    <th>Make</th>
-                    <th>Model</th>
-                    <th>Trim</th>
-                    <th>BodyStyle</th>
-                    <th>EngineCC</th>
-                    <th>EnginePowerPs</th>
-                    <th>EngineNumCyl</th>
-                </tr>
-            </thead>
-            <tbody>
+                <table tr-ng-grid="" items="c.cars" page-items="c.filters.perpage" total-items="c.filters.total"
+                       filter-by="c.filters.filter" current-page="c.filters.page"
+                       on-data-required="c.getCars()">
+
+                    <!--  <table tr-ng-grid="" items="c.cars" page-items="5">-->
+                    <thead>
+                        <tr>
+
+                            <th field-name="model_year" display-name="Year" enable-filtering="false" enable-sorting="false"></th>
+                            <th field-name="make" display-name="Make" enable-filtering="false" enable-sorting="false"></th>
+                            <th field-name="model_name" display-name="Model" enable-filtering="false" enable-sorting="false"></th>
+                            <th field-name="model_trim" display-name="Trim" enable-filtering="false" enable-sorting="false"></th>
+                            <th field-name="body_style" display-name="BodyStyle" enable-filtering="false" enable-sorting="false"></th>
+                            <th field-name="engine_cc" display-name="EngineCC" enable-filtering="false" enable-sorting="false"></th>
+                            <th field-name="engine_power_ps" display-name="EnginePowerPs" enable-filtering="false" enable-sorting="false"></th>
+                            <th field-name="engine_num_cyl" display-name="EngineNumCyl" enable-filtering="false" enable-sorting="false"></th>
+                        </tr>
+                    </thead>
+                </table>
+            <!--<tbody>
                 <tr ng-repeat="car in c.cars">
                     <td>car.model_year}}</td>
                     <td>car.make}}</td>
@@ -73,8 +76,8 @@
                     <td>car.engine_power_ps}}</td>
                     <td>car.engine_num_cyl}}</td>
                 </tr>
-            </tbody>-->
                     </table>
+            </tbody>-->
                 </div>
         </div>
     </div>

@@ -36,29 +36,29 @@
             });
         }
 
-        service.getAllCars = function (paging) {
+        //service.getAllCars = function (paging) {
             
-            return $http.post('/api/car/SelectPagedCars', paging).then(function (response) {
+        //    return $http.post('/api/car/SelectPagedCars', paging).then(function (response) {
+        //        return response.data;
+        //    });
+        //}
+
+        service.getCarsCount = function (filter) {
+
+            return $http.post('/api/car/GetCarsCount', filter).then(function (response) {
                 return response.data;
             });
         }
 
-        service.getCarCount = function (filter) {
-
-            return $http.post('/api/car/GetCarCount', filter).then(function (response) {
-                return response.data[0];
-            });
-        }
-
-        service.getAllFilCars = function (filter, paging) {
-            var fil = {
-                filter: filter,
-                paging: paging
-            }
-            return $http.post('/api/car/GetAllFilCars', fil).then(function (response) {
-                return response.data;
-            });
-        }
+        //service.getAllFilCars = function (filter, paging) {
+        //    var fil = {
+        //        filter: filter,
+        //        paging: paging
+        //    }
+        //    return $http.post('/api/car/GetAllFilCars', fil).then(function (response) {
+        //        return response.data;
+        //    });
+        //}
 
         return service;
     }]);

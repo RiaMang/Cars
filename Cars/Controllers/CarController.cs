@@ -16,30 +16,24 @@ namespace Cars.Controllers
 
         public class ControllerParams
         {
-            public string year;
-            public string make;
-            public string model;
-            public string trim;
+            public string year { get; set; }
+            public string make { get; set; }
+            public string model { get; set; }
+            public string trim { get; set; }
+            public string filter { get; set; }
+            public bool? paging { get; set; }
+            public int? page { get; set; }
+            public int? perPage { get; set; }
         }
 
-        public class Paging
-        {
-            public string page;
-            public string perpage;
-        }
+        
 
-        public class Fil
-        {
-            public string filter;
-            public Paging paging;
-        }
-
-        [HttpPost]
-        [Route("GetCarsFromYear")]
-        public async Task<List<Car>> GetCarsFromYear(ControllerParams selected)
-        {
-            return await db.GetCarsFromYear(selected.year);
-        }
+        //[HttpPost]
+        //[Route("GetCarsFromYear")]
+        //public async Task<List<Car>> GetCarsFromYear(ControllerParams selected)
+        //{
+        //    return await db.GetCarsFromYear(selected.year);
+        //}
 
 
 
@@ -47,7 +41,8 @@ namespace Cars.Controllers
         [Route("GetCars")]
         public async Task<List<Car>> GetCars(ControllerParams selected)
         {
-            return await db.GetCars(selected.year, selected.make, selected.model, selected.trim);
+            return await db.GetCars(selected.year, selected.make, selected.model, selected.trim, 
+                                    selected.filter, selected.paging, selected.page, selected.perPage);
         }
 
         [HttpPost]
@@ -80,31 +75,11 @@ namespace Cars.Controllers
         }
 
         [HttpPost]
-        [Route("SelectPagedCars")]
-        public async Task<List<Car>> SelectPagedCars(Paging paging )
+        [Route("GetCarsCount")]
+        public async Task<int> GetCarsCount(ControllerParams selected)
         {
-           
-             return await db.SelectPagedCars(paging.page, paging.perpage);
-            
-            
-        }
-
-        [HttpPost]
-        [Route("GetCarCount")]
-        public async Task<List<int>> GetCarCount(string filter)
-        {
-
-            return await db.GetCarCount(filter);
-
-        }
-
-        [HttpPost]
-        [Route("GetAllFilCars")]
-        public async Task<List<Car>> GetAllFilCars(Fil fil)
-        {
-
-            return await db.GetAllFilCars(fil.filter, fil.paging.page, fil.paging.perpage);
-
+            return await db.GetCarsCount(selected.year, selected.make, selected.model, selected.trim,
+                                    selected.filter);
 
         }
 
