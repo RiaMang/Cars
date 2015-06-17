@@ -36,12 +36,14 @@
             });
         }
 
-        //service.getAllCars = function (paging) {
-            
-        //    return $http.post('/api/car/SelectPagedCars', paging).then(function (response) {
-        //        return response.data;
-        //    });
-        //}
+        service.getDetails = function (id) {
+            var Id = {
+                id: id
+            }
+            return $http.post('/api/car/GetCarDetails', Id).then(function (response) {
+                return response.data;
+            });
+        }
 
         service.getCarsCount = function (filter) {
 

@@ -92,7 +92,7 @@ namespace Cars.Models
                 }
                 catch(Exception e)
                 {
-                    var y = 2;
+                    
                 }
             }
             else
