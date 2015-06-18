@@ -1039,6 +1039,8 @@
     <Content Include="Template\font-awesome\css\font-awesome.min.css" />
     <Content Include="Template\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Template\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Template\img\AstonMartin.jpg" />
+    <Content Include="Template\img\GrayBenz.jpg" />
     <Content Include="Template\img\header.jpg" />
     <Content Include="Template\img\orangecar.jpg" />
     <Content Include="Template\img\portfolio\1.jpg" />

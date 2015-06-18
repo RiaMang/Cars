@@ -1,3 +1,3 @@
 ﻿(function () {
-    angular.module('app', ["trNgGrid"]);
+    angular.module('app', ["trNgGrid", "ui.bootstrap"]);
 })();

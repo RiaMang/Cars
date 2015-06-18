@@ -1,7 +1,7 @@
 ﻿(function () {
     var app = angular.module('app');
 
-    app.controller('ctrl', ['svc', 'fakesvc', function (svc, fakesvc) {
+    app.controller('ctrl', ['svc', 'fakesvc', '$modal', function (svc, fakesvc,$modal) {
         var scope = this;
         scope.options = {
             years: [],
@@ -22,7 +22,7 @@
             filter: '',
             total: 60506
         }
-        
+        scope.id = 0;
         scope.selectedCars = [];
 
         scope.getYears = function () {
@@ -81,27 +81,6 @@
             });
         }
 
-        scope.getDetails = function (id) {
-            
-            console.log(id);
-            
-            svc.getDetails(id).then(function(response) {
-            scope.carDetails = response;
-            });
-            //$scope.open();
-    }
-        //$scope.open = function () {
-        //    $scope.showModal = true;
-        //};
-
-        //$scope.ok = function () {
-        //    $scope.showModal = false;
-        //};
-
-        //$scope.cancel = function () {
-        //    $scope.showModal = false;
-        //};
-
         scope.getCars = function () {
 
             var f = angular.copy(scope.filters);
@@ -111,14 +90,68 @@
                 scope.cars = result;
 
             });
-           
+
             svc.getCarsCount(scope.filters).then(function (response) {
                 console.log(response)
                 scope.filters.total = response;
             });
         }
 
-
         scope.getYears();
+
+        //scope.getDetails = function (id) {
+            
+        //    console.log(id);
+            
+        //    svc.getDetails(id).then(function(response) {
+        //    scope.carDetails = response;
+        //    });
+        //    console.log(scope.carDetails);
+        //    //scope.open();
+        //}
+
+        scope.open = function (id) {
+            console.log(id)
+            var modalInstance = $modal.open({
+                animation: true,
+                templateUrl: 'carModal.html',
+                controller: 'carModalCtrl as cm',
+                size: 'lg',
+                resolve: {
+                    car: function() {
+                        return svc.getDetails(id)
+                    }
+                 }
+            });
+
+            modalInstance.result.then(function () {
+
+            }, function () {
+
+            });
+        };
+
+        
+
+        
+
+
+        
     }]);
+
+    angular.module('app').controller('carModalCtrl', function ($modalInstance, car) {
+
+        var scope = this;
+
+        scope.car = car;
+
+        scope.ok = function () {
+            $modalInstance.close();
+        };
+
+        scope.cancel = function () {
+            $modalInstance.dismiss();
+        };
+    })
+
 })();
