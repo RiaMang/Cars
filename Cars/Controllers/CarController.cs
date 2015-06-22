@@ -111,7 +111,8 @@ namespace Cars.Controllers
 
             var image = new BingSearchContainer(new Uri("https://api.datamarket.azure.com/Bing/search/"));
 
-            image.Credentials = new NetworkCredential("accountKey", "dwmFt1J2rM45AQXkGTk4ebfcVLNcytTxGMHK6dgMreg");
+            image.Credentials = new NetworkCredential("accountKey", "pplLdOGSDWh5iaWBjOnyIIuSxvgSV9yzE4Zz701mWQA");
+            
             var marketData = image.Composite("image", car.Car.model_year + " " + car.Car.make + " " + car.Car.model_name + " " + car.Car.model_trim,
                 null, null, null, null, null, null, null, null, null, null, null, null, null).Execute();
             car.Image = marketData.First().Image.First().MediaUrl;

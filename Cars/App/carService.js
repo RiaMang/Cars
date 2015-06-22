@@ -41,6 +41,12 @@
                 id: id
             }
             return $http.post('/api/car/GetCarDetails', Id).then(function (response) {
+                response.data.Recalls = JSON.parse(response.data.Recalls);
+                angular.forEach(response.data.Recalls.Results, function (result) {
+                    var len = result.ReportReceivedDate.length;
+                    this.ReportReceivedDate = this.ReportReceivedDate.substr(6, len - 4);
+                });
+                
                 return response.data;
             });
         }

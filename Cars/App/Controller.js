@@ -20,7 +20,7 @@
             page: '0',
             perpage: '10',
             filter: '',
-            total: 60506
+            total: null
         }
         scope.id = 0;
         scope.selectedCars = [];
@@ -99,19 +99,19 @@
 
         scope.getYears();
 
-        //scope.getDetails = function (id) {
+        scope.getDetails = function (id) {
             
-        //    console.log(id);
+            console.log(id);
             
-        //    svc.getDetails(id).then(function(response) {
-        //    scope.carDetails = response;
-        //    });
-        //    console.log(scope.carDetails);
-        //    //scope.open();
-        //}
+            svc.getDetails(id).then(function(response) {
+            scope.carDetails = response;
+            });
+            console.log("car details: "+scope.carDetails.Recalls);
+            scope.open();
+        }
 
         scope.open = function (id) {
-            console.log(id)
+            console.log("Id in open "+id)
             var modalInstance = $modal.open({
                 animation: true,
                 templateUrl: 'carModal.html',
@@ -125,7 +125,7 @@
             });
 
             modalInstance.result.then(function () {
-
+                
             }, function () {
 
             });
